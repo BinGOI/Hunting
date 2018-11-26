@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2048
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quacker Hunter", "Quacker Hunter\Quacker Hunter.csproj", "{B7694433-8BBB-4D70-AC62-A5199D4A613C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hunter.UI", "Hunter.UI\Hunter.UI.csproj", "{4D82753B-6F0D-47A7-B125-8F40D67AFAA9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B7694433-8BBB-4D70-AC62-A5199D4A613C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7694433-8BBB-4D70-AC62-A5199D4A613C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7694433-8BBB-4D70-AC62-A5199D4A613C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7694433-8BBB-4D70-AC62-A5199D4A613C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D82753B-6F0D-47A7-B125-8F40D67AFAA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D82753B-6F0D-47A7-B125-8F40D67AFAA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D82753B-6F0D-47A7-B125-8F40D67AFAA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D82753B-6F0D-47A7-B125-8F40D67AFAA9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AA4D077C-7683-4139-A40E-3E7E43C26B97}
+	EndGlobalSection
+EndGlobal
