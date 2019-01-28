@@ -13,8 +13,9 @@ namespace Hunter.UI.Convertors
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var status = ()
-            new BitmapImage() 
+            var status = (TaskStatus)value;
+            var uri = new Uri(string.Format(@"../image/TaskStatus/Status_{0}.png", status), UriKind.Relative);
+            return new BitmapImage(uri); 
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

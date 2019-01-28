@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Hunter.UI.Base;
 using Hunter.UI.ViewModels;
+using Ninject;
 using Quacker_Hunter;
 using System;
 using System.Collections.Generic;

@@ -135,6 +135,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\blood_splatter.png" />
+    <None Include="Resources\Hunting-Background.jpg" />
+    <None Include="Resources\backgroundupd.png" />
+    <None Include="Resources\backgroundupd2.png" />
     <Content Include="Woodland_M21_CoD4.ico" />
   </ItemGroup>
   <ItemGroup>

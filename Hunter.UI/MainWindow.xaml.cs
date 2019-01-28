@@ -83,12 +83,22 @@ namespace Hunter.UI
         {
             Form form = new GameWind(records);
             form.Show();
+            form.FormClosing += Frm2_Closing;
+            this.Hide();
         }
+
+        private void Frm2_Closing(object sender, FormClosingEventArgs e)
+        {
+            this.Show();
+        }
+
 
         private void ContinueGame_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Form form = new GameWind();
             form.Show();
+            form.FormClosing += Frm2_Closing;
+            this.Hide();
             Game dgame = DataSerializer.DeserializeItem("save.dat");
             Game.SCORE = dgame.scoreForSerialization;
             Game.KILLS = dgame.killsForSerialization;
@@ -99,12 +109,13 @@ namespace Hunter.UI
         {
             Grid1.Opacity = 0.5;
             Grid1.IsEnabled = false;
+            records = DataModel.Load();
             //Game recordsData = DataSerializer.DeserializeItem("saverecords.dat");
-            foreach(var game in records.Records)
-                ProfileGrid.Items.Add(game);
+            //foreach(var game in records.Records)
+            //   ProfileGrid.Items.Add(game);
             /*Game.SCORE = dgame.scoreForSerialization;
             Game.KILLS = dgame.killsForSerialization;
-            Game.MISS = dgame.missForSerialization;*/    
+            Game.MISS = dgame.missForSerialization;*/
         }
 
         private void OK_MouseEnter(object sender, MouseEventArgs e)

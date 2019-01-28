@@ -90,7 +90,8 @@
                     </EventTrigger>
                 </Label.Triggers>
             </Label>
-            <DataGrid AutoGenerateColumns="True" x:Name="ProfileGrid" Height="300" Margin="800,50,-253,0" VerticalAlignment="Top" RowHeight="32" HorizontalAlignment="Left" Width="245" Background="White">
+            <DataGrid AutoGenerateColumns="False" x:Name="ProfileGrid" Height="300" Margin="800,50,-253,0" ItemsSource="{Binding Path = Records}" 
+                      VerticalAlignment="Top" RowHeight="32" HorizontalAlignment="Left" Width="245" Background="White" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Profile Name"  Binding="{Binding Name}"/>
                     <DataGridTextColumn Header="Record" Binding="{Binding Record}"/>

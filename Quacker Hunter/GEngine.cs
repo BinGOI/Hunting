@@ -60,7 +60,7 @@ namespace Quacker_Hunter
         private void loadAssets()
         {
             Console.WriteLine("GEngine->loasdAssets(): Loading game assets....");
-            asset_background = Quacker_Hunter.Properties.Resources.background;
+            asset_background = Quacker_Hunter.Properties.Resources.backgroundupd2;
             asset_weapon = Quacker_Hunter.Properties.Resources.FirstPersonGun;
             asset_duckFromRight = Quacker_Hunter.Properties.Resources.DuckFromRight;
             asset_duckFromLeft = Quacker_Hunter.Properties.Resources.DuckFromLeft;
@@ -73,6 +73,11 @@ namespace Quacker_Hunter
             Console.WriteLine("GEngine->stop(): Game Puased");
             renderThread.Abort();
             isPaused = true;
+        }
+
+        public void stoprender()
+        {
+            renderThread.Abort();
         }
 
         private void render()

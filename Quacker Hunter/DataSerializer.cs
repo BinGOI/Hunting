@@ -23,7 +23,9 @@ namespace Quacker_Hunter
         {
             var s = new FileStream(fileName, FileMode.Open);
             var formatter = new DataContractSerializer(typeof(Game));
-            return (Game)formatter.ReadObject(s);
+            var toReturn = (Game)formatter.ReadObject(s);
+            s.Close();
+            return toReturn;          
         }
 
         public static void SerializeDataToRecords(string fileName, DataModel data)
@@ -38,7 +40,9 @@ namespace Quacker_Hunter
         {
             var s = new FileStream(fileName, FileMode.Open);
             var formatter = new DataContractSerializer(typeof(DataModel));
-            return (DataModel)formatter.ReadObject(s);
+            var toReturn = (DataModel)formatter.ReadObject(s);
+            s.Close();
+            return toReturn;
         }
     }
 }

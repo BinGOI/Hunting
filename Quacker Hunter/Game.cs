@@ -20,16 +20,16 @@ namespace Quacker_Hunter
         public Boolean enableLoggingWindow = true;
 
         /*ENABLE LOGGING WINDOW */
-        [DllImport("kernel32.dll", SetLastError = true)]
+        /*[DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAsAttribute(UnmanagedType.Bool)]
-        static extern bool AllocConsole();
+        static extern bool AllocConsole();*/
 
         /* Configurations */
-        public const int WIND_WIDTH = 1072;
-        public const int WIND_HEIGHT = 566;
-        public const int POINT_PER_KILL = 10;
-        public static int AIMER_X = WIND_WIDTH / 2;
-        public static int AIMER_Y = WIND_HEIGHT / 2;
+        public static int WIND_WIDTH;// = System.Windows.Forms.SystemInformation.PrimaryMonitorSize.Width;
+        public static int WIND_HEIGHT;// = System.Windows.Forms.SystemInformation.PrimaryMonitorSize.Width;
+        public static int POINT_PER_KILL = 10;
+        public static int AIMER_X;
+        public static int AIMER_Y;
 
         /* Changable Settings */
         /*public static int DUCK_MIN_MOVE_SPEED = 4;
@@ -68,17 +68,27 @@ namespace Quacker_Hunter
         [DataMember]
         public int duck_Create_SpeedscoreForSerialization { get; set; }
 
-        public Game(DataModel Records)
+        public Game(DataModel Records, GameWind gameWind)
         {
-            records = DataModel.Load()/*Records*/;            
-            if ( enableLoggingWindow ) AllocConsole();
+            records = DataModel.Load()/*Records*/;
+            //if ( enableLoggingWindow ) AllocConsole();
             Console.WriteLine("Game class created");
+            WIND_WIDTH = gameWind.Width;
+            WIND_HEIGHT = gameWind.Height;
+            AIMER_X = WIND_WIDTH / 2;
+            AIMER_Y = WIND_HEIGHT / 2;
+
         }
 
-        public Game()
+        public Game(GameWind gameWind)
         {
-            if (enableLoggingWindow) AllocConsole();
+            records = DataModel.Load();
+            //if (enableLoggingWindow) AllocConsole();
             Console.WriteLine("Game class created");
+            WIND_WIDTH = gameWind.Width;
+            WIND_HEIGHT = gameWind.Height;
+            AIMER_X = WIND_WIDTH / 2;
+            AIMER_Y = WIND_HEIGHT / 2;
         }
 
         public void startGraphics(Graphics g)
@@ -106,7 +116,12 @@ namespace Quacker_Hunter
             name = "Oleh";
         }
 
-        public static void createDuck( int x = 0)
+        public void endGame()
+        {
+            gengine.stoprender();
+        }
+
+        public static void createDuck(int x = 0)
         {
             if (x == 0)
                 x = WIND_WIDTH;
@@ -119,7 +134,7 @@ namespace Quacker_Hunter
             }
 
             if (x != WIND_WIDTH)
-                Console.WriteLine("Game->createdDuck at {0} (X was assigned as a variable - Starting from {1})", x.ToString(), start_from );
+                Console.WriteLine("Game->createdDuck at {0} (X was assigned as a variable - Starting from {1})", x.ToString(), start_from);
             else
                 Console.WriteLine("Game->createDuck at {0} (X wasn't assigned -- assuming SIDE - Starting from {1})", x.ToString(), start_from);
 
@@ -136,6 +151,13 @@ namespace Quacker_Hunter
             ducks.Add(t);
         }
 
+        public void saveRecord()
+        {
+            SetDataToSerialization();
+            records.Records.Add(new Profile(this.name, SCORE));
+            records.Save();
+        }
+
         public void onWeaponFire()
         {
             if (gengine.isPaused) return;
@@ -150,7 +172,7 @@ namespace Quacker_Hunter
             foreach (Dictionary<string, string> value in Game.ducks)
             {
                 index = Game.ducks.IndexOf(value);
-                
+
                 if (Convert.ToBoolean(value["is_dead"])) continue;
 
                 x = Convert.ToInt32(value["pos_x"]);
@@ -159,7 +181,7 @@ namespace Quacker_Hunter
                 if (aim_x >= x && aim_x <= x + 200)
                 {
                     // Check Y
-                    if (aim_y >= y && aim_y <= y+120)
+                    if (aim_y >= y && aim_y <= y + 120)
                     {
                         //Game.ducks.Remove(Game.ducks[index]);
                         value["is_dead"] = "true";
@@ -182,7 +204,11 @@ namespace Quacker_Hunter
             snd.Play();
         }
 
-
+        public void saveToContinue()
+        {
+            SetDataToSerialization();
+            DataSerializer.SerializeData("save.dat", this);
+        }
 
 
         //// Game Controls ////
@@ -227,7 +253,7 @@ namespace Quacker_Hunter
 
                         break;
                     case "d":
-                            key = "right";
+                        key = "right";
 
                         break;
                     default:
@@ -239,6 +265,22 @@ namespace Quacker_Hunter
             {
                 this.onWeaponFire();
             }
+        }
+
+        public void closeGame()
+        {
+            stopGame();
+            DialogResult result;
+            result = MessageBox.Show("Зберегти гру?", "Збереження гри", MessageBoxButtons.YesNo);
+            if (result == System.Windows.Forms.DialogResult.Yes)
+            {
+                saveToContinue();
+            }
+            else
+            {
+                saveRecord();
+            }
+            endGame();
         }
 
         public void onKeyRelease(KeyEventArgs e)
@@ -259,13 +301,20 @@ namespace Quacker_Hunter
                     movingAimer = "right";*/
                 movingAimer = "n";
             }
-            else if (key == "escape")
+            /*else if (key == "escape")
             {
-                if (gengine.isGamePaused())
-                    gengine.startGame();
+                DialogResult result;
+                result = MessageBox.Show("Зберегти гру?", "Збереження гри", MessageBoxButtons.YesNo);
+                if (result == System.Windows.Forms.DialogResult.Yes)
+                {
+                    this.saveToContinue();
+                }
                 else
-                    gengine.stop();
-            }
+                {
+                    this.saveRecord();
+                }
+                this.endGame();
+            }*/
         }
     }
 }

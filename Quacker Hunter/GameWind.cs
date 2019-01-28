@@ -11,18 +11,19 @@ namespace Quacker_Hunter
     {
 
         private Game game;
-        Boolean levelSelected = false;
+        Boolean levelSelected = true;
+        private DataModel records;
 
         public GameWind(DataModel records)
         {
             InitializeComponent();
-            game = new Game(records);
+            game = new Game(records, this);
         }
 
         public GameWind()
         {
             InitializeComponent();
-            game = new Game();
+            game = new Game(this);
         }
 
         private void canvas_Paint(object sender, PaintEventArgs e)
@@ -31,12 +32,25 @@ namespace Quacker_Hunter
             {
                 Graphics f = canvas.CreateGraphics();
                 game.startGraphics(f);
+                Game.DUCK_MIN_MOVE_SPEED = 10;
+                Game.DUCK_MAX_MOVE_SPEED = 18;
+                Game.DUCK_CREATE_SPEED = 700;
+                label1.Visible = false;
+                label2.Visible = false;
+                label3.Visible = false;
             }
         }
 
         private void GameWind_KeyDown(object sender, KeyEventArgs e)
         {
-            game.onKeyPress( e );
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+            else
+            {
+                game.onKeyPress(e);
+            }
         }
 
         private void GameWind_KeyUp(object sender, KeyEventArgs e)
@@ -101,5 +115,11 @@ namespace Quacker_Hunter
             game.onWeaponFire();
            // MessageBox.Show("canvas_Click");
         }
+
+        private void GameWind_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            game.closeGame();
+        }
+
     }
 }
